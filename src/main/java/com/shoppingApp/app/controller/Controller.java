@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingApp.app.entity.ProductDtoEle;
 import com.shoppingApp.app.entity.Products;
+import com.shoppingApp.app.entity.ProductsClothing;
 import com.shoppingApp.app.entity.ProductsElectronic;
 import com.shoppingApp.app.repo.ProductsElectronicRepo;
 import com.shoppingApp.app.service.AllProductsService;
+import com.shoppingApp.app.service.ProductsClothingService;
 import com.shoppingApp.app.service.ProductsEleService;
 
 
@@ -32,6 +34,9 @@ public class Controller {
 	
 	@Autowired
 	AllProductsService aps;
+	
+	@Autowired
+	ProductsClothingService pcs;
 	
 	@GetMapping("/all")
 	public ArrayList<Products> allList() {
@@ -55,6 +60,12 @@ public class Controller {
 	public List<ProductsElectronic> getMobiles() {
 
 		return this.ps.listMobiles();
+	}
+	
+	@GetMapping("clothing")
+	public List<ProductsClothing> getAllClothing(){
+		
+		return this.pcs.getAll();
 	}
 	
 	@PostMapping("save-product")
