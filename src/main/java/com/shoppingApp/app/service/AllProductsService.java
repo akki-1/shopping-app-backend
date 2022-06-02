@@ -1,14 +1,11 @@
 package com.shoppingApp.app.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shoppingApp.app.entity.Products;
-import com.shoppingApp.app.entity.ProductsClothing;
-import com.shoppingApp.app.entity.ProductsElectronic;
+import com.shoppingApp.app.entity.AllProducts;
 import com.shoppingApp.app.repo.ProductsClothingRepo;
 import com.shoppingApp.app.repo.ProductsElectronicRepo;
 
@@ -21,25 +18,27 @@ public class AllProductsService {
 	@Autowired
 	ProductsClothingRepo pcr;
 	
-	ArrayList<Products> ar;
+	ArrayList<AllProducts> ar;
 	
-	public ArrayList<Products> allProducts(){
-		this.ar=new ArrayList<Products>();
-		Products p=new Products();
+	public ArrayList<AllProducts> allProducts(){
+		this.ar=new ArrayList<AllProducts>();
+		AllProducts p=new AllProducts();
 		
 		p.setClothing(this.pcr.findAll());
 		p.setElectronic(this.per.findAll());
+		this.ar.add(p);
+		return this.ar;
+		
+	}
+	
+	public ArrayList<AllProducts> searchProduct(String keyword){
+		ArrayList<AllProducts> ar=new ArrayList<>();
+		AllProducts p=new AllProducts();
+		p.setElectronic(this.per.findByNameContaining(keyword));
+		p.setClothing(this.pcr.findByNameContaining(keyword));
 		ar.add(p);
-		for (Products products : ar) {
-			for (ProductsElectronic products2 : products.getElectronic()) {
-				System.out.println(products2.getName());
-			}
-			for (ProductsClothing products2 : products.getClothing()) {
-				System.out.println(products2.getName());
-			}
-			
-		}
 		return ar;
+		
 		
 	}
 

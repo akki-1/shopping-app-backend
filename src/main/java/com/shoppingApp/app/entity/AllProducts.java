@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Products {
+public class AllProducts {
 	
 	private List<ProductsClothing> clothing;
 	private List<ProductsElectronic> electronic;

@@ -12,34 +12,31 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @Entity
-public class ProductsClothing {
+public class ProductTVs {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	@ManyToOne
+	private String price;
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Category category;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private ProductType productType;
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "pcr")
-	private ProductClothingImages pci;
-	private String size;
-	private String colour;
-	private String sleeves;
-	private int price;
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private TVsImages tvImage;
+	private String display;
+	private String smartTV;
+	private String sound;
+	private String os;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.shoppingApp.app.entity.Category;
 import com.shoppingApp.app.entity.ProductDtoEle;
+import com.shoppingApp.app.entity.ProductElectronicsImages;
 import com.shoppingApp.app.entity.ProductType;
 import com.shoppingApp.app.entity.ProductsElectronic;
 import com.shoppingApp.app.repo.CategoryRepoInterface;
@@ -23,15 +24,15 @@ public class ProductsEleService {
 	private ProductsElectronicRepo pe;
 	
 	@Autowired
-	ModelMapper mm;
+	private ModelMapper mm;
 	
 	@Autowired
-	CategoryRepoInterface cr;
+	private CategoryRepoInterface cr;
 	
 	@Autowired
-	ProductTypeRepo ptr;
+	private ProductTypeRepo ptr;
 
-	List<ProductsElectronic> listLaptops;
+	private List<ProductsElectronic> listLaptops;
 
 	public List<ProductsElectronic> listLaptop() {
 		this.listLaptops = new ArrayList<ProductsElectronic>();
@@ -61,14 +62,32 @@ public class ProductsEleService {
 	}
 	
 	public ProductsElectronic saveProduct(ProductDtoEle p) {
+		
 		Optional<Category> c= this.cr.findById(1);
-		ProductType pt= this.ptr.findByName(p.getProductType().getName());
+		ProductElectronicsImages pei=p.getPi();
+		
+		ProductType pt= this.ptr.findByName(p.getProductType());
 		ProductsElectronic pe=this.dtoToPe(p);
+		pei.setPe(pe);
 		pe.setCategory(c.get());
 		pe.setProductType(pt);
+		pe.setPi(pei);
 		this.pe.save(pe);
 		return pe;
 		
+	}
+	
+	public ArrayList<ProductsElectronic> search(String keyword) {
+		System.out.println(keyword);
+		ArrayList<ProductsElectronic> searchList=new ArrayList<>();
+		List<ProductsElectronic> listAll= this.pe.findAll();
+		for (ProductsElectronic productsElectronic : listAll) {
+			System.out.println(productsElectronic.getName());
+			if(productsElectronic.getName().contentEquals(keyword)) {
+				searchList.add(productsElectronic);
+			}
+		}
+		return searchList;
 	}
 	
 	public ProductsElectronic dtoToPe(ProductDtoEle p) {

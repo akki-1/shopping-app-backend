@@ -2,6 +2,7 @@ package com.shoppingApp.app.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -26,9 +27,12 @@ public class Category {
 	@Id
 	private int id;
 	private String name;
-	@OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "category",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<ProductsElectronic> products;
 	@OneToMany(mappedBy = "category")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ProductsClothing>   pt;
+	@OneToMany(mappedBy = "category")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<ProductTVs>  tvs;
 }

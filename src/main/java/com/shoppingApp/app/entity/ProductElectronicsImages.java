@@ -6,40 +6,29 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@ToString
-@AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@AllArgsConstructor
+@Data
 @Entity
-public class ProductsClothing {
+public class ProductElectronicsImages {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String name;
-	@ManyToOne
+	private String imageName;
+	private long size;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "pi")
 	@JsonIgnore
-	private Category category;
-	@ManyToOne
-	@JsonIgnore
-	private ProductType productType;
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "pcr")
-	private ProductClothingImages pci;
-	private String size;
-	private String colour;
-	private String sleeves;
-	private int price;
+	ProductsElectronic pe;
+	
+
 
 }

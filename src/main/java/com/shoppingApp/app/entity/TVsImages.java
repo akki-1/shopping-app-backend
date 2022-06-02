@@ -14,12 +14,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class ProductImageEle {
-	
+public class TVsImages {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -27,8 +28,5 @@ public class ProductImageEle {
 	private long size;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
-	ProductsElectronic pe;
-	
-
-
+	ProductTVs tvs;
 }
